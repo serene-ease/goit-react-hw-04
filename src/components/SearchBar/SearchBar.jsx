@@ -1,21 +1,23 @@
-import toast from 'react-hot-toast';
+import toast from 'react-hot-toast'
+import { useState } from 'react';
 
-export const SearchBar = ({onSearch}) => {
-    const handleSubmit = e => {
-        e.preventDafault();
-        console.log(e.target.elements)
-        if (e.target.elements.query.value.trim() === '') {
-            toast.error('EMPTY STRING!');
-            return;
-          }
-      
-          onSearch(e.target.elements.query.value);
-          e.target.reset();
-        };
-        return (
-            <form onSubmit={handleSubmit}>
-              <input type="text" name="query" />
-              <button type="submit">Search</button>
-            </form>
-          );
-    }
+export const SearchBar = ({ onSearch }) => {
+  const [query, setQuery] = useState('')
+
+  const handleInputChange = e => {
+    setQuery(e.target.value);
+  }
+  const handleSubmit = event => {
+    event.preventDefault();
+    onSearch(query);
+    setQuery('')
+  }
+
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input value={query} onChange={handleInputChange} type="text" name="search" autoComplete="off" required autoFocus />
+      <button type="submit">Search</button>
+    </form>
+  );
+};
