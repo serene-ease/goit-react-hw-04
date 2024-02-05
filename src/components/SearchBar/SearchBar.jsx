@@ -6,6 +6,7 @@ export const SearchBar = ({ onSearch }) => {
 
   const handleInputChange = e => {
     setQuery(e.target.value);
+    
   }
   const handleSubmit = event => {
     event.preventDefault();

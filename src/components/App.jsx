@@ -1,6 +1,5 @@
 ////////////////////////////
 import { useEffect, useState } from 'react';
-
 ////////////////////////////
 import { fetchImages } from '../api';
 import { SearchBar } from './SearchBar/SearchBar';
@@ -17,24 +16,23 @@ export const App = () => {
 
   useEffect(() => {
     if (!query) return;
+  
+    setLoading(true);
+    setError(false);
 
-    {
-      console.log(query);
-    }
-    async function fetch() {
+    async function fetchCurrentImages() {
       try {
-        setLoading(true);
-        setError(false);
-        const fetchedData = await fetchImages(query.split('/'[1], page));
-        console.log(fetchedData)
+        const fetchedData = await fetchImages(query, page);
+        // console.log(fetchedData)
         setImages(prevImages => [...prevImages, ...fetchedData]);
+        // setTotal(total_results)
       } catch (error) {
         setError(true);
       } finally {
         setLoading(false);
       }
     }
-    fetch();
+    fetchCurrentImages();
   }, [query, page]);
 
   const handleLoadMore = () => {
