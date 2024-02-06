@@ -6,7 +6,7 @@ axios.defaults.baseURL = 'https://api.unsplash.com/';
 // axios.defaults.headers = 'Accept-Version: v1';
 
 export const fetchImages = async (query, page) => {
-  console.log('api  :',query);
+  console.log('api  :', query);
   const res = await axios.get(`search/photos/?client_id=${API_KEY}`, {
       params: {
       query,
@@ -15,7 +15,7 @@ export const fetchImages = async (query, page) => {
     }
    
   });
-  console.log('response:',res);
-  // console.log('response.data :',res.data);
-  return res.data.results;
+  // console.log('response:',res);
+  console.log('response.data :',res.data);
+  return res.data;
 };
