@@ -1,9 +1,8 @@
 import Modal from 'react-modal';
+Modal.setAppElement('#root');
 import style from './ImageModal.module.css';
 
-Modal.setAppElement('#root');
-
-export const ImageModal = ({ isOpen, onAfterOpen, onRequestClose, urls, alt_description, description }) => {
+export const ImageModal = ({ isOpen, onAfterOpen, onRequestClose, item: { urls, alt_description, description }}) => {
 
     return (
         <Modal

@@ -1,10 +1,12 @@
 import { useState } from 'react';
+///////////////////////////////////////////
 import { ImageCard } from '../ImageCard/ImageCard';
 import { ImageModal } from '../ImageModal/ImageModal';
-////////////////////////////////////////////
+///////////////////////////////////////////
 import style from './ImageGallery.module.css';
 
-//////////////Modal////////////////////////
+export const ImageGallery = ({ items }) => {
+  //////////////Modal////////////////////////
 const [selectedImage, setSelectedImage] = useState(null);
 const [isOpen, setIsOpen] = useState(null);
 
@@ -23,8 +25,6 @@ const closeModal = () => {
   setIsOpen(false);
 }
 ////////////////\\Modal////////////////////////////
-
-export const ImageGallery = ({ items }) => {
   return (
     <div>
       <ul className={style.gallery}>
@@ -34,7 +34,7 @@ export const ImageGallery = ({ items }) => {
           </li>
         ))}
       </ul>
-      {selectedImage && <ImageModal isOpen={isOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} urls={selectedImage.urls.full} alt_description={selectedImage.alt_description} description={description}/>}
+      {selectedImage && <ImageModal isOpen={isOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} item={selectedImage}/>}
     </div>
   );
 };
