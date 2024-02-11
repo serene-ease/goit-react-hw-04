@@ -50,7 +50,7 @@ export const App = () => {
     setPage(page + 1);
   };
 
-  const searchImages = async newQvery => {
+  const handleSearch = async newQvery => {
     console.log('On Press', total)
     if (!total) {
       toast.error('Oops, there are not data by this query!', {
@@ -70,12 +70,13 @@ export const App = () => {
 
   return (
     <div>
-      <SearchBar onSearch={searchImages} />
+      <SearchBar onSearch={handleSearch} />
       {images.length > 0 && <ImageGallery items={images} />}
       {!query && loading && <Loader />}
+      {!total && <Toaster position="top-right" reverseOrder={false} />}
       {error && <Text>{'Wrong request, we sorry'}</Text>}      
       {images.length > 0 && !loading && images.length < total &&<button className={style.button} onClick={handleLoadMore}>Load more</button>}
-      <Toaster />
+      
     </div>
   );
 };
