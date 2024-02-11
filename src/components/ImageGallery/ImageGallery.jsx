@@ -1,17 +1,40 @@
+import { useState } from 'react';
 import { ImageCard } from '../ImageCard/ImageCard';
-import s from './ImageGallery.module.css';
+import { ImageModal } from '../ImageModal/ImageModal';
+////////////////////////////////////////////
+import style from './ImageGallery.module.css';
+
+//////////////Modal////////////////////////
+const [selectedImage, setSelectedImage] = useState(null);
+const [isOpen, setIsOpen] = useState(null);
+
+const openModal = (image) => {
+  setSelectedImage(image);
+  setIsOpen(true);
+}
+
+const afterOpenModal = () => {
+  document.body.style.overflow = "hidden";
+}
+
+const closeModal = () => {
+  document.body.style.overflow = "scroll";
+  setSelectedImage(null);
+  setIsOpen(false);
+}
+////////////////\\Modal////////////////////////////
 
 export const ImageGallery = ({ items }) => {
-
-
   return (
-    <ul className={s.gallery}>
-      {items.map(item => (
-        <li className={s.listItem} key={item.id}>
-          <ImageCard item={item} />
-        </li>        
-      ))}
-    </ul>
-    // {selectedItem && <ImageModal isOpen={modalIsOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} selectedItem={selectedItem} />}
+    <div>
+      <ul className={style.gallery}>
+        {items.map(item => (
+          <li className={style.listItem} key={item.id} onClick={() => openModal(item)} >
+            <ImageCard item={item} />
+          </li>
+        ))}
+      </ul>
+      {selectedImage && <ImageModal isOpen={isOpen} onAfterOpen={afterOpenModal} onRequestClose={closeModal} urls={selectedImage.urls.full} alt_description={selectedImage.alt_description} description={description}/>}
+    </div>
   );
 };
