@@ -32,7 +32,7 @@ export const App = () => {
         const fetchedData = await fetchImages(query.split('/')[1], page);
         console.log('fetchedData',fetchedData)
         setImages(prevImages => [...prevImages, ...fetchedData.results]);
-        setTotal(() => setTotal(fetchedData.total_pages));
+        setTotal(() => setTotal(fetchedData.total));
         {console.log('fethed total_pages ', total);}
         // {console.log('fetchedData.total_pages ', fetchedData.total_pages);}
         
@@ -65,17 +65,19 @@ export const App = () => {
     setError(null);
     setImages([]);
   };
-  // {console.log('total:',total);}
+  {console.log('total:',total);}
   // {console.log('images.length:', images.length);}
 
   return (
     <div>
       <SearchBar onSearch={handleSearch} />
-      {images.length > 0 && <ImageGallery items={images} />}
+      
       {!query && loading && <Loader />}
+      {console.log('Toaster', total)}
       {!total && <Toaster position="top-right" reverseOrder={false} />}
-      {error && <Text>{'Wrong request, we sorry'}</Text>}      
-      {images.length > 0 && !loading && images.length < total &&<button className={style.button} onClick={handleLoadMore}>Load more</button>}
+      {error && <Text>{'Wrong request, we sorry'}</Text>}     
+      {images.length > 0 && <ImageGallery items={images} />} 
+      {images.length > 0 && !loading && images.length !== total &&<button className={style.button} onClick={handleLoadMore}>Load more</button>}
       
     </div>
   );

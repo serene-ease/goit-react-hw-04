@@ -11,7 +11,8 @@ export const fetchImages = async (query, page) => {
       params: {
       query,
       page,
-      per_page: 12,
+      per_page: 50
+    ,
     }
    
   });
